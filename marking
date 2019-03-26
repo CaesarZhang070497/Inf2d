@@ -1,0 +1,124 @@
+Your assignment comments and marks, follows below.
+
+The marks are raw marks so if you submitted late they would be reduced by 5% for each day they were late. Further, these (raw) marks are provisional, as they must be ratified by the board of examiners.
+
+Here are some common errors that were made by a significant number of students:
+
+* Forgetting to restrict the types of arguments that can be passed to particular actions. This resulted in, for example, agents which would pick up customers, or glasses which could come alive and move on their own.
+
+* Many students correctly identified the that the agent would sometimes steal a glass it had served to one customer, and serve it to another. However, many of the work-arounds to this problem made unrealistic assumptions which artificially reduced the flexibility of the agent. For example, making the agent unable to pick up a glass which contains beer is not a fair solution to this problem.
+
+* Mixing up concepts from Forwards Planning and Backwards Planning in Q1.10. In Forwards planning, the agent starts in an initial state, chooses from available actions (actions whose pre-conditions satisfied by the current state description) until it reaches a state which satisfies the goal description. In Backwards planning, the agent starts from the goal description and choses relevant actions (those whose effect would satisfy a sub-goal of the current goal description without negating any other sub-goals) until it reaches a goal description which can be satisfied by the initial state.
+
+Cheers,
+Craig
+--------------------
+##########################
+    Marks and Feedback
+##########################
+
+-----------------------------
+Part 1: Modelling the Planner
+-----------------------------
+
+Q 1.1:
+
+    Marks: ( 2 / 2 )
+    Comments:
+
+Q 1.2:
+
+    Marks: ( 2 / 2 )
+    Comments:
+
+Q 1.3:
+
+    Marks: ( 2 / 3 )
+    Comments: Having both "hasBeer" and "Empty" seems redundant here.
+
+Q 1.4:
+
+    Marks: ( 2 / 3 )
+    Comments: Same issue: "Unserved" is essentially just "not Served"
+
+Q 1.5:
+
+    Marks: ( 4 / 5 )
+    Comments: Adjacency only defined one-way
+
+Q 1.6:
+
+    Marks: ( 4 / 4 )
+    Comments:
+
+Q 1.7:
+
+    Marks: ( 4 / 4 )
+    Comments:
+
+Q 1.8:
+
+    Marks: ( 3 / 3 )
+    Comments: Ive already penalized this above, but notice how these extra predicates mean you have to manage double the preconditions / effects?
+
+Q 1.9:
+
+    Marks: ( 4 / 4 )
+    Comments:
+
+Q 1.10:
+
+    Marks: ( 9 / 15 )
+    Comments:
+      - Havent defined initial state
+      - Missed a relevant action: Pickup is still relevant after Move
+      - Goal updates sometimes do not delete result of previous action. E.g, after Pour, hasBeer(glass) should no longer be a subgoal
+      - This leads to too many relevant actions in next step
+
+
+PART-1-TOTAL: 36 / 45
+
+----------------------
+Part 2: Implementation
+----------------------
+
+Q 2.1:
+
+    Marks: ( 10 / 10 )
+    Comments:
+
+Q 2.2:
+
+    Marks: ( 10 / 10 )
+    Comments:
+
+Q 2.3:
+
+    Marks: ( 10 / 10 )
+    Comments:
+
+PART-2-TOTAL: 30 / 30
+
+----------------------------
+Part 3: Extending the Domain
+----------------------------
+
+Q 3.1:
+
+    Marks: ( 10 / 15 )
+    Comments:
+      - Again there are double predicates instead of using negation: hasbrokenGlasses / nobrokenGlasses
+      - There is lots of overlapping use with other predicates too. For example, lots of functionality is double-shared by Hold, Free, and also hasBroom
+
+
+Q 3.2:
+
+    Marks: ( 5 / 10 )
+    Comments: The agent puts down broom, but still seems able to sweep with it.
+
+PART-3-TOTAL: ( 15 / 25 )
+
+
+--------------------
+TOTAL-MARKS: 81 / 100
+--------------------
