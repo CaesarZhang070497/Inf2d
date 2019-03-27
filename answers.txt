@@ -1,0 +1,114 @@
+-----------------------------------------------------------------------
+ ------ Informatics 2D - 2017/18 - Second Assignment - Planning ------
+-----------------------------------------------------------------------
+ 
+ Write your matriculation number here (your name is not needed)
+ Matriculation Number: s_______
+ 
+1.1 
+predicates used to describe map:
+
+Area(x)                    -- true iff x is an area
+Adjacent(x,y)              -- true iff two areas are adjacent 
+
+1.2
+predicates used to keep track of the location that an agent.glass or customer is At:
+
+In(x,y)                    -- true iff x is an agent or a glass and x is in a room
+Free(x)                    -- true iff x is an agent and x is free
+Hold(x,y)                  -- true iff x is an agent and y is a glass.
+ 
+1.3
+define the predicates used to model a glass wether it contains beer:
+
+Glass(x)                   -- true iff x is a glass
+hasBeer(x)                    -- true iff x contains beer
+
+
+1.4
+define the predicates used to model a customer and whether that customer has been served:
+
+Customer(x)                -- true iff x is a customer
+Served(x)                  -- true iff x is a customer and he has been served
+Unserved(customer)         -- true iff x is a customer and he has not been served
+1.5
+initial states of the problem:
+
+Area(Bar) ∧ Area(UB) ∧ Area(UF) ∧ Area(MB) ∧ Area(MF) ∧ Area(LB) ∧ Area(LF) ∧ 
+Adjacent(Bar,UF) ∧ Adjacent(UF,MF) ∧ Adjacent(MF,LF) ∧ Adjacent(LF.LB) ∧ Adjacent(LB,MB) ∧ Adjacent(MB,UB)∧ Adjacent(UB,UF) ∧ 
+Agent(agent)∧ In(agent,Bar) ∧ 
+Glass(glass)∧ In(glass,Bar) ∧ 
+Customer(customer) ∧ In(customer,LB) ∧ 
+
+1.6
+the agent picks up a glass:
+
+Action( 
+        Pickup(agent,glass,room),
+        PRECOND: Agent(agent) ∧ Glass(glass) ∧ Area(room) ∧ In(glass,room) ∧ In(agent,room) ∧ Free(agent) 
+        EFFECT:  Hold(agent,glass) ∧ ¬ In(glass,room) ∧ ¬ Free(agent)
+)
+
+1.7
+the agent handover a glass of beer to a customer in the same location 
+
+Action( 
+        Handover(agent,glass,customer,room),
+        PRECOND: Agent(agent) ∧ Glass(glass) ∧ Area(room) ∧ Customer(customer) ∧ Hold(agent,glass) ∧ In(customer,room) ∧ In(agent,room) ∧ hasBeer(glass) ∧ Hold(agent,glass) ∧ Unserved(customer)
+        EFFECT:  Served(customer) ∧ ¬ Hold(agent,glass) ∧ ¬Unserved(customer)
+)
+
+1.8
+
+Action( 
+        Pour(agent,glass),
+        PRECOND: Agent(agent) ∧ Glass(glass) ∧ In(agent,Bar) ∧ 
+        EFFECT:  hasBeer(glass) ∧ ¬ (¬hasBeer(glass))
+)
+1.9
+
+Action( 
+        Move(agent,area1,area2),
+        PRECOND: Agent(agent) ∧ In(agent,area1) ∧ Area(area1) ∧ Area(area2) ∧ Adjacent(area1,area2) 
+        EFFECT:  In(agent,area2) ∧ ¬ In(agent,area1)
+)
+1.10
+
+Current state description: Customer(customer) ∧ Served(customer) 
+
+
+Relevant Actions: Handover
+
+Choose: Handover(agent,glass,customer,UF)
+
+Current state description: Agent(agent) ∧ Glass(glass) ∧ Area(UF) ∧ Customer(customer) ∧ Hold(agent,glass) ∧ In(customer,UF) ∧ In(agent,UF) ∧ hasBeer(glass) ∧ Hold(agent,glass) ∧ Unserved(customer) 
+
+
+Relevant Actions: Pickup Pour Move
+
+Choose: Move(agent,Bar,UF)
+
+Current state description: Agent(agent) ∧ In(agent,Bar) ∧ Glass(glass) ∧ Customer(customer) ∧ In(customer,UF) ∧ Unserved(customer) ∧ Area(Bar) ∧ Area(UF) ∧ Hold(agent,glass) ∧ hasBeer(glass) ∧ Adjacent(Bar,UF) 
+                           
+
+
+Relevant Actions: Pickup Pour
+
+Choose: Pickup(agent,glass,Bar)
+
+Current state description: Agent(agent) ∧ In(agent,Bar) ∧ Glass(glass) ∧ Customer(customer) ∧ In(customer,UF) ∧¬Served(customer) ∧ In(glass,Bar) ∧ Area(Bar) ∧ Area(UF) ∧ hasBeer(glass) ∧ Adjacent(Bar,UF) 
+                           Free(agent)
+
+
+Relevant Actions:  Pour(agent,glass)
+
+Choose: Pour(agent,glass)
+
+Current state description: Agent(agent) ∧ In(agent,Bar) ∧ Glass(glass) ∧ Customer(customer) ∧ In(customer,UF) ∧¬Served(customer) ∧ In(glass,Bar) ∧ ¬hasBeer(glass) ∧ Area(Bar) ∧ Area(UF)   ∧ Adjacent(Bar,UF) 
+                           Free(agent)
+
+
+Current state description: Agent(agent) ∧ In(agent,Bar) ∧ Glass(glass) ∧ Customer(customer) ∧ In(customer,UF) ∧¬Served(customer) ∧ In(glass,Bar) ∧ ¬hasBeer(glass)  
+--------------------
+Answers to parts 2 and 3 should be included in the appropriate
+*-template.pddl files.
